@@ -9,11 +9,11 @@ const inventory_two = [];
 let home_div = document.querySelector("#home");
 let game_div = document.querySelector("#game");
 
-let game_table = document.querySelector("#gameTable");
-let status_table = document.querySelector("#statusTable");
+let game_table = document.querySelectorAll("#gameTable td");
+let status_table = document.querySelectorAll("#statusTable td");
 
-let inventory_one_table = document.querySelector("#inventoryOneTable");
-let inventory_two_table = document.querySelector("#inventoryTwoTable");
+let inventory_one_table = document.querySelectorAll("#inventoryOneTable td");
+let inventory_two_table = document.querySelectorAll("#inventoryTwoTable td");
 
 document.querySelector("#startGameButton").addEventListener("click", initGame);
 
@@ -28,21 +28,27 @@ function initGame()
     home_div.style.display = "none";
     game_div.style.display = "block";
 
-    status_table.
+    status_table[0].textContent = name_one;
+    status_table[1].textContent = "VS";
+    status_table[2].textContent = name_two;
 
     changeTurn();
 }
+
+
 
 function changeTurn()
 {
     if (turn)
     {
-
+        status_table[0].style.fontWeight = "bold";
+        status_table[2].style.fontWeight = "normal";
         turn = 0;
     }
     else
     {
-
+        status_table[0].style.fontWeight = "normal";
+        status_table[2].style.fontWeight = "bold";
         turn = 1;
     }
 }
