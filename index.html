@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Quantik</title>
+</head>
+<body>
+    <div id="home" style="display: block">
+        <form>
+            <div id="quantik">QUANTIK</div>
+            <label for="p1name">Játékos 1:</label><input type="text" id="p1name" name="p1name" value="1. játékos">
+            <label for="p2name">Játékos 2:</label><input type="text" id="p2name" name="p2name" value="2. játékos">
+            <input type="button" id="startGameButton" name="startGameButton" value="Start">
+            
+            <label for="savedList">Mentések listája:</label>
+            <ul id="savedList" name="savedList"></ul>
+
+            <details>
+            <summary>Játékszabály</summary>
+                <p>A játék egy 4x4-es táblán játszódik, ami 4 egyenlő, 2x2-es részre van bontva. A játékhoz négy, egymástól könnyen megkülönböztethető, alakzatot használhatunk, jelen esetben négyzetet, kört, háromszöget és X-et. Mind a két játékosnak minden alakzatból 2-2 bábuja van, így összesen 8 alakzat található meg egy színből. A játék célja az, hogy elsőként helyezzék le a játékosok a negyedik, többitől különböző formát egy sorba, oszlopba, vagy négyzet alakú területre (színtől függetlenül). Ha egy cellára lehelyeztünk egy alakzatot, akkor annak sorába, oszlopába, vagy négyzet alakú területére nem tudja már egyik játékos sem még egyszer ugyanazt az alakzatot letenni.</p><img src="img/base.png" alt="Pálya"><p>Mivel a színek nem számítanak, nyerhetünk csupán úgy is, hogy mind a három másik alakzatot a másik játékos tette le, mi pedig a negyedik bábut helyeztük le.</p><img src="img/win1.png" alt="Első eset"><p>Ebben a játékban a piros játékos helyezte le a piros kört a második sorban, így a jobb felső területre az utolsó hiányzó darab is felkerült, és megnyerte a játékot.</p><img src="img/win2.png" alt="Második eset"><p>A zöld játékos rakta le utoljára a zöld négyzetet az első sorban, így lehelyezve a hiányzó alakzatot abban a sorban, és megnyerte a játékot.</p>
+            </details>
+        </form>
+    </div>
+
+    <div id="game" style="display: none">
+        <table id="gameTable">
+            <tbody>
+                <tr>
+                    <td class="topLeft"></td>
+                    <td class="topLeft"></td>
+                    <td class="topRight"></td>
+                    <td class="topRight"></td>
+                </tr>
+                <tr>
+                    <td class="topLeft"></td>
+                    <td class="topLeft"></td>
+                    <td class="topRight"></td>
+                    <td class="topRight"></td>
+                </tr>
+                <tr>
+                    <td class="bottomLeft"></td>
+                    <td class="bottomLeft"></td>
+                    <td class="bottomRight"></td>
+                    <td class="bottomRight"></td>
+                </tr>
+                <tr>
+                    <td class="bottomLeft"></td>
+                    <td class="bottomLeft"></td>
+                    <td class="bottomRight"></td>
+                    <td class="bottomRight"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table id="statusTable">
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table id="inventoryOneTable">
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <table id="inventoryTwoTable">
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+.topLeft, .bottomRight {
+    background-color: #96CEB4;
+}
+.topRight, .bottomLeft, #statusTable {
+    background-color: #FFEEAD;
+}
+#inventoryOneTable {
+    background-color: #FFDAD9;
+}
+#inventoryTwoTable {
+    background-color: #E0FFD8;
+}
