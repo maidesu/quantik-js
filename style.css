@@ -10,3 +10,8 @@
 #inventoryTwoTable {
     background-color: #E0FFD8;
 }
+
+td {
+    width: 8vw;
+    height: 8vw;
+}

@@ -1,10 +1,14 @@
 let turn = 1;
 
+let selectedPiece = 0;
+
 let name_one = "";
 let name_two = "";
 
 const inventory_one = [];
 const inventory_two = [];
+
+const game_field = [];
 
 let home_div = document.querySelector("#home");
 let game_div = document.querySelector("#game");
@@ -25,6 +29,8 @@ function initGame()
     inventory_one.push(1, 1, 2, 2, 4, 4, 8, 8);
     inventory_two.push(1, 1, 2, 2, 4, 4, 8, 8);
 
+    game_field.push(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
     home_div.style.display = "none";
     game_div.style.display = "block";
 
@@ -33,6 +39,7 @@ function initGame()
     status_table[2].textContent = name_two;
 
     changeTurn();
+    refreshInventory();
 }
 
 
@@ -51,4 +58,17 @@ function changeTurn()
         status_table[2].style.fontWeight = "bold";
         turn = 1;
     }
+}
+
+function refreshInventory()
+{
+    inventory_one_table[0].textContent = inventory_one.filter(e => e == 1).length;
+    inventory_one_table[1].textContent = inventory_one.filter(e => e == 2).length;
+    inventory_one_table[2].textContent = inventory_one.filter(e => e == 4).length;
+    inventory_one_table[3].textContent = inventory_one.filter(e => e == 8).length;
+
+    inventory_two_table[0].textContent = inventory_two.filter(e => e == 1).length;
+    inventory_two_table[1].textContent = inventory_two.filter(e => e == 2).length;
+    inventory_two_table[2].textContent = inventory_two.filter(e => e == 4).length;
+    inventory_two_table[3].textContent = inventory_two.filter(e => e == 8).length;
 }
