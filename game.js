@@ -59,22 +59,30 @@ function changeTurn()
     {
         status_table[0].style.fontWeight = "bold";
         status_table[0].style.color = "black";
+        status_table[0].style.textDecoration = "underline";
+
         status_table[2].style.fontWeight = "normal";
         status_table[2].style.color = "gray";
+        status_table[2].style.textDecoration = "none";
         turn = 0;
     }
     else
     {
         status_table[0].style.fontWeight = "normal";
         status_table[0].style.color = "gray";
+        status_table[0].style.textDecoration = "none";
+
         status_table[2].style.fontWeight = "bold";
         status_table[2].style.color = "black";
+        status_table[2].style.textDecoration = "underline";
         turn = 1;
     }
 }
 
-function checkValidMove()
+function checkValidMove(position)
 {
+    if (game_field[position] != 0) { return 0; }
+
     return 1; // TODO
 }
 
@@ -85,8 +93,21 @@ function checkWinCondition()
 
 function submitMove(position)
 {
-    if (checkValidMove(position, selectedPiece))
+    if (checkValidMove(position))
     {
+        if (!turn)
+        {
+            let index = inventory_one.indexOf(selectedPiece);
+            if (index < 0) { console.log("No such piece left"); return; }
+            inventory_one.splice(index, 1);
+        }
+        else
+        {
+            let index = inventory_two.indexOf(selectedPiece);
+            if (index < 0) { console.log("No such piece left"); return; }
+            inventory_two.splice(index, 1);
+        }
+
         game_field[position] = selectedPiece;
         endTurn();
     }
