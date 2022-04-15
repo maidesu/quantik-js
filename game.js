@@ -60,6 +60,11 @@ function changeTurn()
     }
 }
 
+function refreshGameTable()
+{
+    
+}
+
 function refreshInventory()
 {
     inventory_one_table[0].textContent = inventory_one.filter(e => e == 1).length;
@@ -71,4 +76,54 @@ function refreshInventory()
     inventory_two_table[1].textContent = inventory_two.filter(e => e == 2).length;
     inventory_two_table[2].textContent = inventory_two.filter(e => e == 4).length;
     inventory_two_table[3].textContent = inventory_two.filter(e => e == 8).length;
+}
+
+function getImage(piece, turn)
+{
+    let img = document.createElement("img");
+
+    if (!turn)
+    {
+        switch(piece)
+        {
+            case 0:
+                img.hidden = true;
+                break;
+            case 1:
+                img.src = "img/circle0.png";
+                break;
+            case 2:
+                img.src = "img/square0.png";
+                break;
+            case 4:
+                img.src = "img/triangle0.png";
+                break;
+            case 8:
+                img.src = "img/x0.png";
+                break;
+        }
+    }
+    else
+    {
+        switch(piece)
+        {
+            case 0:
+                img.hidden = true;
+                break;
+            case 1:
+                img.src = "img/circle1.png";
+                break;
+            case 2:
+                img.src = "img/square1.png";
+                break;
+            case 4:
+                img.src = "img/triangle1.png";
+                break;
+            case 8:
+                img.src = "img/x1.png";
+                break;
+        }
+    }
+
+    return img;
 }
