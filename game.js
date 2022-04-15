@@ -27,7 +27,7 @@ function initGame()
     name_two = document.querySelector("#p2name").value;
 
     inventory_one.push(1, 1, 2, 2, 4, 4, 8, 8);
-    inventory_two.push(1, 1, 2, 2, 4, 4, 8, 8);
+    inventory_two.push(-1, -1, -2, -2, -4, -4, -8, -8);
 
     game_field.push(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
@@ -40,6 +40,7 @@ function initGame()
 
     changeTurn();
     refreshInventory();
+    refreshGameTable();
 }
 
 
@@ -60,9 +61,23 @@ function changeTurn()
     }
 }
 
-function refreshGameTable()
+function checkValidMove()
+{
+    
+}
+
+function checkWinCondition()
 {
 
+}
+
+function refreshGameTable()
+{
+    let i = 0;
+    game_field.forEach(e => {
+        game_table[i].appendChild(getImage(e));
+        ++i;
+    });
 }
 
 function refreshInventory()
@@ -72,57 +87,45 @@ function refreshInventory()
     inventory_one_table[6].textContent = inventory_one.filter(e => e == 4).length;
     inventory_one_table[7].textContent = inventory_one.filter(e => e == 8).length;
 
-    inventory_two_table[4].textContent = inventory_two.filter(e => e == 1).length;
-    inventory_two_table[5].textContent = inventory_two.filter(e => e == 2).length;
-    inventory_two_table[6].textContent = inventory_two.filter(e => e == 4).length;
-    inventory_two_table[7].textContent = inventory_two.filter(e => e == 8).length;
+    inventory_two_table[4].textContent = inventory_two.filter(e => e == -1).length;
+    inventory_two_table[5].textContent = inventory_two.filter(e => e == -2).length;
+    inventory_two_table[6].textContent = inventory_two.filter(e => e == -4).length;
+    inventory_two_table[7].textContent = inventory_two.filter(e => e == -8).length;
 }
 
-function getImage(piece, turn)
+function getImage(piece)
 {
     let img = document.createElement("img");
 
-    if (!turn)
+    switch(piece)
     {
-        switch(piece)
-        {
-            case 0:
-                img.hidden = true;
-                break;
-            case 1:
-                img.src = "img/circle0.png";
-                break;
-            case 2:
-                img.src = "img/square0.png";
-                break;
-            case 4:
-                img.src = "img/triangle0.png";
-                break;
-            case 8:
-                img.src = "img/x0.png";
-                break;
-        }
-    }
-    else
-    {
-        switch(piece)
-        {
-            case 0:
-                img.hidden = true;
-                break;
-            case 1:
-                img.src = "img/circle1.png";
-                break;
-            case 2:
-                img.src = "img/square1.png";
-                break;
-            case 4:
-                img.src = "img/triangle1.png";
-                break;
-            case 8:
-                img.src = "img/x1.png";
-                break;
-        }
+        case 0:
+            img.hidden = true;
+            break;
+        case 1:
+            img.src = "img/circle0.png";
+            break;
+        case 2:
+            img.src = "img/square0.png";
+            break;
+        case 4:
+            img.src = "img/triangle0.png";
+            break;
+        case 8:
+            img.src = "img/x0.png";
+            break;
+        case -1:
+            img.src = "img/circle1.png";
+            break;
+        case -2:
+            img.src = "img/square1.png";
+            break;
+        case -4:
+            img.src = "img/triangle1.png";
+            break;
+        case -8:
+            img.src = "img/x1.png";
+            break;
     }
 
     return img;
