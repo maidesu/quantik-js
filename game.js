@@ -62,20 +62,20 @@ function changeTurn()
 
 function refreshGameTable()
 {
-    
+
 }
 
 function refreshInventory()
 {
-    inventory_one_table[0].textContent = inventory_one.filter(e => e == 1).length;
-    inventory_one_table[1].textContent = inventory_one.filter(e => e == 2).length;
-    inventory_one_table[2].textContent = inventory_one.filter(e => e == 4).length;
-    inventory_one_table[3].textContent = inventory_one.filter(e => e == 8).length;
+    inventory_one_table[4].textContent = inventory_one.filter(e => e == 1).length;
+    inventory_one_table[5].textContent = inventory_one.filter(e => e == 2).length;
+    inventory_one_table[6].textContent = inventory_one.filter(e => e == 4).length;
+    inventory_one_table[7].textContent = inventory_one.filter(e => e == 8).length;
 
-    inventory_two_table[0].textContent = inventory_two.filter(e => e == 1).length;
-    inventory_two_table[1].textContent = inventory_two.filter(e => e == 2).length;
-    inventory_two_table[2].textContent = inventory_two.filter(e => e == 4).length;
-    inventory_two_table[3].textContent = inventory_two.filter(e => e == 8).length;
+    inventory_two_table[4].textContent = inventory_two.filter(e => e == 1).length;
+    inventory_two_table[5].textContent = inventory_two.filter(e => e == 2).length;
+    inventory_two_table[6].textContent = inventory_two.filter(e => e == 4).length;
+    inventory_two_table[7].textContent = inventory_two.filter(e => e == 8).length;
 }
 
 function getImage(piece, turn)
