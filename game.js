@@ -83,6 +83,20 @@ function checkValidMove(position)
 {
     if (game_field[position] != 0) { return 0; }
 
+    let a = Math.floor(position / 4);
+    let b = position % 4;
+
+    for (let i = 0; i < 4; ++i)
+    {
+        //console.log(i + "*4+" + b + " " + game_field[i*4+b] + "==" + selectedPiece);
+        if (Math.abs(game_field[i*4+b]) == Math.abs(selectedPiece)) { return 0; }
+    }
+    for (let j = 0; j < 4; ++j)
+    {
+        //console.log(a + "*4+" + j + " " + game_field[a*4+j] + "==" + selectedPiece);
+        if (Math.abs(game_field[a*4+j]) == Math.abs(selectedPiece)) { return 0; }
+    }
+
     return 1; // TODO
 }
 
