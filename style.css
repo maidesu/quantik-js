@@ -14,4 +14,17 @@
 td {
     width: 8vw;
     height: 8vw;
+
+    text-align: center;
+    vertical-align: middle;
+}
+
+img {
+    width: 6vw;
+    height: 6vw;
+}
+
+details img {
+    width: 30vw;
+    height: auto;
 }
