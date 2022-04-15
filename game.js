@@ -1,4 +1,6 @@
-let turn = 1;
+let first_run = 1;
+
+let turn = 0;
 
 let selectedPiece = 0;
 
@@ -26,8 +28,15 @@ home_button.addEventListener("click", () => { home_button.style.display = "none"
 
 function initGame()
 {
+    turn = 1; // intentionally set to opponent, because of endTurn()
+
     name_one = document.querySelector("#p1name").value;
     name_two = document.querySelector("#p2name").value;
+
+    inventory_one.splice(0, inventory_one.length);
+    inventory_two.splice(0, inventory_two.length);
+
+    game_field.splice(0, game_field.length);
 
     inventory_one.push(1, 1, 2, 2, 4, 4, 8, 8);
     inventory_two.push(-1, -1, -2, -2, -4, -4, -8, -8);
@@ -41,7 +50,7 @@ function initGame()
     status_table[1].textContent = "VS";
     status_table[2].textContent = name_two;
 
-    assignTable();
+    if (first_run) { assignTable(); }
 
     endTurn();
 }
@@ -210,6 +219,8 @@ function assignTable()
 
         });
     }
+
+    first_run = 0;
 }
 
 function refreshGameTable()
