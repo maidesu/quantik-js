@@ -21,6 +21,9 @@ let inventory_two_table = document.querySelectorAll("#inventoryTwoTable td");
 
 document.querySelector("#startGameButton").addEventListener("click", initGame);
 
+let home_button = document.querySelector("#homeButton");
+home_button.addEventListener("click", () => { home_button.style.display = "none"; game_div.style.display = "none"; home_div.style.display = "block"; });
+
 function initGame()
 {
     name_one = document.querySelector("#p1name").value;
@@ -86,6 +89,7 @@ function checkValidMove(position)
     let a = Math.floor(position / 4);
     let b = position % 4;
 
+    // Row & col checks
     for (let i = 0; i < 4; ++i)
     {
         //console.log(i + "*4+" + b + " " + game_field[i*4+b] + "==" + selectedPiece);
@@ -97,12 +101,39 @@ function checkValidMove(position)
         if (Math.abs(game_field[a*4+j]) == Math.abs(selectedPiece)) { return 0; }
     }
 
-    return 1; // TODO
+    // Group of 4 tiles check
+    let c = Math.floor(position / 4) < 2 ? 0 : 1;
+    let d = (position % 4) < 2 ? 0 : 1;
+
+    const box = [ Math.abs(game_field[c*8+0+d*2]), Math.abs(game_field[c*8+1+d*2]), Math.abs(game_field[c*8+4+d*2]), Math.abs(game_field[c*8+5+d*2]) ];
+    if (box.includes(Math.abs(selectedPiece))) { return 0; }
+
+    return 1;
 }
 
 function checkWinCondition()
 {
-    return 0; // TODO
+    for (let i = 0; i < 4; ++i)
+    {
+        const row = [ game_field[i*4+0], game_field[i*4+1], game_field[i*4+2], game_field[i*4+3] ];
+        if (!row.includes(0)) { return 1; }
+    }
+    for (let j = 0; j < 4; ++j)
+    {
+        const col = [ game_field[0*4+j], game_field[1*4+j], game_field[2*4+j], game_field[3*4+j] ];
+        if (!col.includes(0)) { return 1; }
+    }
+
+    for (let i = 0; i < 2; ++i)
+    {
+        for (let j = 0; j < 2; ++j)
+        {
+            const box = [ game_field[i*8+0+j*2], game_field[i*8+1+j*2], game_field[i*8+4+j*2], game_field[i*8+5+j*2] ];
+            if (!box.includes(0)) { return 1; }
+        }
+    }
+
+    return 0;
 }
 
 function submitMove(position)
@@ -112,13 +143,13 @@ function submitMove(position)
         if (!turn)
         {
             let index = inventory_one.indexOf(selectedPiece);
-            if (index < 0) { console.log("No such piece left"); return; }
+            if (index < 0) { console.log("No such piece left!"); return; }
             inventory_one.splice(index, 1);
         }
         else
         {
             let index = inventory_two.indexOf(selectedPiece);
-            if (index < 0) { console.log("No such piece left"); return; }
+            if (index < 0) { console.log("No such piece left!"); return; }
             inventory_two.splice(index, 1);
         }
 
@@ -127,7 +158,7 @@ function submitMove(position)
     }
     else
     {
-        console.log(`Placement of ${selectedPiece} to position ${position} is illegal`);
+        console.log(`Placement of ${selectedPiece} to position ${position} is illegal!`);
     }
 }
 
@@ -157,7 +188,7 @@ function assignTable()
                 inventory_one_table[i].style.backgroundColor = "yellow";
             }
             else {
-                console.log("Opponent's turn");
+                console.log("Opponent's turn!");
             }
 
         });
@@ -174,7 +205,7 @@ function assignTable()
                 inventory_two_table[i].style.backgroundColor = "yellow";
             }
             else {
-                console.log("Opponent's turn");
+                console.log("Opponent's turn!");
             }
 
         });
@@ -246,6 +277,12 @@ function endTurn()
 {
     refreshInventory();
     refreshGameTable();
-    checkWinCondition();
+    
+    if (checkWinCondition())
+    {
+        alert((!turn) ? `A játékot megnyerte az 1. játékos: ${name_one}` : `A játékot megnyerte a 2. játékos: ${name_two}`);
+        home_button.style.display = "block";
+    }
+
     changeTurn();
 }
