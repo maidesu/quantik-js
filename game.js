@@ -47,16 +47,28 @@ function initGame()
 
 function changeTurn()
 {
+    for (let i = 0; i < 4; ++i)
+    {
+        inventory_one_table[i].style.backgroundColor = "transparent";
+        inventory_two_table[i].style.backgroundColor = "transparent";
+    }
+
+    selectedPiece = 0;
+
     if (turn)
     {
         status_table[0].style.fontWeight = "bold";
+        status_table[0].style.color = "black";
         status_table[2].style.fontWeight = "normal";
+        status_table[2].style.color = "gray";
         turn = 0;
     }
     else
     {
         status_table[0].style.fontWeight = "normal";
+        status_table[0].style.color = "gray";
         status_table[2].style.fontWeight = "bold";
+        status_table[2].style.color = "black";
         turn = 1;
     }
 }
@@ -80,18 +92,58 @@ function submitMove(position)
     }
     else
     {
-        console.error(`Placement of ${selectedPiece} to position ${position} is illegal`);
+        console.log(`Placement of ${selectedPiece} to position ${position} is illegal`);
     }
 }
 
 function assignTable()
 {
     let i = 0;
-    game_field.forEach(e => {
+    game_field.forEach(() => {
         game_table[i].dataset.num = i;
         game_table[i].addEventListener("click", function() { submitMove(this.dataset.num); });
         ++i;
     });
+
+    for (let i = 0; i < 4; ++i)
+    {
+        inventory_one_table[i].dataset.num = Math.pow(2, i);
+        inventory_two_table[i].dataset.num = - Math.pow(2, i);
+
+        inventory_one_table[i].addEventListener("click", () => {
+
+            if (!turn) {
+                selectedPiece = parseInt(inventory_one_table[i].dataset.num);
+                for (let j = 0; j < 4; ++j)
+                {
+                    inventory_one_table[j].style.backgroundColor = "transparent";
+                    inventory_two_table[j].style.backgroundColor = "transparent";
+                }
+                inventory_one_table[i].style.backgroundColor = "yellow";
+            }
+            else {
+                console.log("Opponent's turn");
+            }
+
+        });
+        inventory_two_table[i].addEventListener("click", () => {
+
+            if (turn)
+            {
+                selectedPiece = parseInt(inventory_two_table[i].dataset.num); 
+                for (let j = 0; j < 4; ++j)
+                {
+                    inventory_one_table[j].style.backgroundColor = "transparent";
+                    inventory_two_table[j].style.backgroundColor = "transparent";
+                }
+                inventory_two_table[i].style.backgroundColor = "yellow";
+            }
+            else {
+                console.log("Opponent's turn");
+            }
+
+        });
+    }
 }
 
 function refreshGameTable()
@@ -159,5 +211,6 @@ function endTurn()
 {
     refreshInventory();
     refreshGameTable();
+    checkWinCondition();
     changeTurn();
 }
