@@ -19,6 +19,10 @@ td {
     vertical-align: middle;
 }
 
+.container {
+    border-spacing: 4rem 1rem;
+}
+
 img {
     width: 6vw;
     height: 6vw;
@@ -27,4 +31,12 @@ img {
 details img {
     width: 30vw;
     height: auto;
+}
+
+#gameTable {
+
+    border-spacing: 0.6rem 0.6rem;
+}
+#gameTable td {
+
 }
