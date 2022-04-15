@@ -38,9 +38,9 @@ function initGame()
     status_table[1].textContent = "VS";
     status_table[2].textContent = name_two;
 
-    changeTurn();
-    refreshInventory();
-    refreshGameTable();
+    assignTable();
+
+    endTurn();
 }
 
 
@@ -63,18 +63,42 @@ function changeTurn()
 
 function checkValidMove()
 {
-    
+    return 1; // TODO
 }
 
 function checkWinCondition()
 {
+    return 0; // TODO
+}
 
+function submitMove(position)
+{
+    if (checkValidMove(position, selectedPiece))
+    {
+        game_field[position] = selectedPiece;
+        endTurn();
+    }
+    else
+    {
+        console.error(`Placement of ${selectedPiece} to position ${position} is illegal`);
+    }
+}
+
+function assignTable()
+{
+    let i = 0;
+    game_field.forEach(e => {
+        game_table[i].dataset.num = i;
+        game_table[i].addEventListener("click", function() { submitMove(this.dataset.num); });
+        ++i;
+    });
 }
 
 function refreshGameTable()
 {
     let i = 0;
     game_field.forEach(e => {
+        game_table[i].innerHTML = "";
         game_table[i].appendChild(getImage(e));
         ++i;
     });
@@ -100,7 +124,7 @@ function getImage(piece)
     switch(piece)
     {
         case 0:
-            img.hidden = true;
+            img.src = "img/empty.png";
             break;
         case 1:
             img.src = "img/circle0.png";
@@ -129,4 +153,11 @@ function getImage(piece)
     }
 
     return img;
+}
+
+function endTurn()
+{
+    refreshInventory();
+    refreshGameTable();
+    changeTurn();
 }
