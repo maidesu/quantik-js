@@ -12,6 +12,8 @@ const inventory_two = [];
 
 const game_field = [];
 
+var statistics = [];
+
 let home_div = document.querySelector("#home");
 let game_div = document.querySelector("#game");
 
@@ -291,7 +293,39 @@ function endTurn()
     
     if (checkWinCondition())
     {
-        alert((!turn) ? `A játékot megnyerte az 1. játékos: ${name_one}` : `A játékot megnyerte a 2. játékos: ${name_two}`);
+        statistics = JSON.parse(document.querySelector("#jsonStatistics").textContent);
+
+        let found = 0;
+
+        let p1wins = 0;
+        let p2wins = 0;
+
+        statistics.forEach(e => {
+            if (e.player1 == name_one && e.player2 == name_two)
+            {
+                if (!turn)
+                {
+                    e.player1wins = e.player1wins + 1; 
+                }
+                else
+                {
+                    e.player2wins = e.player2wins + 1; 
+                }
+                found = 1;
+                p1wins = e.player1wins;
+                p2wins = e.player2wins;
+            }
+        });
+
+        if (!found) {
+            if (!turn) { statistics.push({'player1': `${name_one}`, 'player2': `${name_two}`, 'player1wins': 1, 'player2wins': 0}); p1wins = 1; }
+            else { statistics.push({'player1': `${name_one}`, 'player2': `${name_two}`, 'player1wins': 0, 'player2wins': 1}); p2wins = 1; }
+        }
+
+        document.querySelector("#jsonStatistics").textContent = JSON.stringify(statistics, null, '\t');
+        statistics = [];
+
+        alert((!turn) ? `A játékot megnyerte az 1. játékos: ${name_one}, összesen ${p1wins} győzelemmel` : `A játékot megnyerte a 2. játékos: ${name_two}, összesen ${p2wins} győzelemmel`);
         home_button.style.display = "block";
     }
 
